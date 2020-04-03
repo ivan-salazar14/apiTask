@@ -6,7 +6,8 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import { tasksRouter } from "./tasks/tasks.router";
-
+import { errorHandler } from "./middleware/error.middleware";
+import { notFoundHandler } from "./middleware/notFound.middleware";
 dotenv.config();
 /**
  * App Variables
@@ -28,6 +29,9 @@ app.use(cors());
 app.use(express.json());
 app.use("/tasks", tasksRouter);
 
+//all use route here before error handler
+app.use(notFoundHandler);
+app.use(errorHandler);
 /**
  * Server Activation
  */

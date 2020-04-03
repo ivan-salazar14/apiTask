@@ -6,6 +6,8 @@ import express, { Request, Response } from "express";
 import * as TaskService from "./tasks.service";
 import { Task } from "./task.interface";
 import { Tasks } from "./tasks.interface";
+import { checkJwt } from "../middleware/authz.middleware";
+
 /**
  * Router Definition
  */
@@ -38,6 +40,10 @@ tasksRouter.get("/:id", async (req: Request, res: Response) => {
     }
 });
 
+
+// Mount authorization middleware
+//after that its necesary authorization
+tasksRouter.use(checkJwt);
 
 // POST tasks/
 
